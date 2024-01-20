@@ -17,7 +17,6 @@ export class RegisterUseCase {
     email,
     image,
     postal_code,
-    role,
   }: OrganizationRegisterRequest): Promise<OrganizationRegisterResponse> {
     const password_hash = await hash(password, 10)
 
@@ -37,7 +36,6 @@ export class RegisterUseCase {
       city,
       image,
       postal_code,
-      role,
     })
 
     return { organization }

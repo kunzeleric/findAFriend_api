@@ -8,10 +8,18 @@ export interface OrganizationRegisterRequest {
   address: string
   city: string
   postal_code: string
-  image: string
-  role?: 'admin' | 'member'
+  image?: string
 }
 
 export interface OrganizationRegisterResponse {
+  organization: Organization
+}
+
+export interface OrganizationAuthenticationRequest {
+  email: string
+  password: string
+}
+
+export interface OrganizationAuthenticationResponse {
   organization: Organization
 }

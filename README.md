@@ -6,8 +6,8 @@ An API for animal adoption.
 - [ ] It must be possible to list all pets available for adoption in a city.
 - [ ] It must be possible to filter pets by their characteristics.
 - [ ] It must be possible to view details of a pet for adoption.
-- [ ] It must be possible to register as an organization (ORG).
-- [ ] It must be possible to log in as an organization (ORG).
+- [x] It must be possible to register as an organization.
+- [x] It must be possible to log in as an organization.
 
 ## Business Rules
 - [ ] To list pets, it is mandatory to provide the city.

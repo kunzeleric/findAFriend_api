@@ -34,16 +34,16 @@ enum Environment {
 }
 
 model Organization {
-  id               String @id @default(uuid())
+  id               String  @id @default(uuid())
   name             String
   name_responsible String
-  email            String @unique
+  email            String  @unique
   password_hash    String
   address          String
   city             String
   postal_code      String
-  image            String
-  role             Role?  @default(member)
+  image            String?
+  role             Role?   @default(member)
   pets             Pet[]
 
   @@map("orgs")
@@ -57,7 +57,7 @@ model Pet {
   energy_level      Level       @default(medium)
   independent_level Level       @default(medium)
   environment       Environment @default(average)
-  image             String
+  image             String?
   requirements      String
   city              String
   adopted_at        DateTime
