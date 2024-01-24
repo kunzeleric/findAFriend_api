@@ -10,61 +10,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  admin
-  member
-}
-
-enum Age {
-  puppy
-  adult
-  senior
-}
-
-enum Level {
-  low
-  medium
-  high
-}
-
-enum Environment {
-  small
-  average
-  big
-}
-
 model Organization {
   id               String  @id @default(uuid())
   name             String
   name_responsible String
+  whatsapp         String
   email            String  @unique
   password_hash    String
   address          String
   city             String
   postal_code      String
   image            String?
-  role             Role?   @default(member)
   pets             Pet[]
 
   @@map("orgs")
 }
 
 model Pet {
-  id                String      @id @default(uuid())
-  name              String
-  about             String
-  age               Age
-  energy_level      Level       @default(medium)
-  independent_level Level       @default(medium)
-  environment       Environment @default(average)
-  image             String?
-  requirements      String
-  city              String
-  adopted_at        DateTime
-  registered_at     DateTime    @default(now())
+  id          String    @id @default(uuid())
+  name        String
+  about       String
+  age         String
+  energy      Int
+  independent String
+  environment String
+  image       String?
+  city        String
+  adopted_at  DateTime?
+  created_at  DateTime  @default(now())
 
-  org    Organization @relation(fields: [org_id], references: [id])
-  org_id String
+  org                   Organization           @relation(fields: [org_id], references: [id])
+  org_id                String
+  adoption_requirements AdoptionRequirements[]
+  pet_gallery           PetGallery[]
 
   @@map("pets")
+}
+
+model PetGallery {
+  id    String @id @default(uuid())
+  image String
+
+  pet    Pet    @relation(fields: [pet_id], references: [id])
+  pet_id String
+
+  @@map("pet_gallery")
+}
+
+model AdoptionRequirements {
+  id    String @id @default(uuid())
+  title String
+
+  pet    Pet    @relation(fields: [pet_id], references: [id])
+  pet_id String
+
+  @@map("adoption_requirements")
 }
