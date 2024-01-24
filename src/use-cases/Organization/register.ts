@@ -4,6 +4,7 @@ import {
 } from '@/@types/organizations'
 import { OrganizationRepository } from '@/repositories/organization-repository'
 import { hash } from 'bcryptjs'
+import { OrganizationAlreadyExistsError } from '../errors/organization-already-exists-error'
 
 export class RegisterUseCase {
   constructor(private organizationsRepository: OrganizationRepository) {}
@@ -17,6 +18,7 @@ export class RegisterUseCase {
     email,
     image,
     postal_code,
+    whatsapp,
   }: OrganizationRegisterRequest): Promise<OrganizationRegisterResponse> {
     const password_hash = await hash(password, 10)
 
@@ -24,7 +26,7 @@ export class RegisterUseCase {
       await this.organizationsRepository.findByEmail(email)
 
     if (organizationWithSameEmail) {
-      throw new Error('Organization already exists!')
+      throw new OrganizationAlreadyExistsError()
     }
 
     const organization = await this.organizationsRepository.create({
@@ -36,6 +38,7 @@ export class RegisterUseCase {
       city,
       image,
       postal_code,
+      whatsapp,
     })
 
     return { organization }
