@@ -9,6 +9,7 @@ export interface OrganizationRegisterRequest {
   city: string
   postal_code: string
   image?: string
+  whatsapp: string
 }
 
 export interface OrganizationRegisterResponse {

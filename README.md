@@ -11,8 +11,7 @@ An API for animal adoption.
 
 ## Business Rules
 - [ ] To list pets, it is mandatory to provide the city.
-- [ ] An ORG must have an address and a WhatsApp number.
+- [x] An ORG must have an address and a WhatsApp number.
 - [ ] A pet must be linked to an ORG.
-- [ ] The user who wants to adopt will contact the ORG via WhatsApp.
 - [ ] All filters, besides the city, are optional.
-- [ ] For an ORG to access the application as an admin, it needs to be logged in.
+- [x] For an ORG to access the application as an admin, it needs to be logged in.

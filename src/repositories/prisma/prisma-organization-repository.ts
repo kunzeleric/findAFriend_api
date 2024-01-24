@@ -4,20 +4,30 @@ import { prisma } from '@/lib/prisma'
 
 export class PrismaOrganizationRepository implements OrganizationRepository {
   async create(data: Prisma.OrganizationCreateInput) {
-    const user = await prisma.organization.create({
+    const organization = await prisma.organization.create({
       data,
     })
 
-    return user
+    return organization
   }
 
   async findByEmail(email: string) {
-    const user = await prisma.organization.findUnique({
+    const organization = await prisma.organization.findUnique({
       where: {
         email,
       },
     })
 
-    return user
+    return organization
+  }
+
+  async findById(id: string) {
+    const organization = await prisma.organization.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    return organization
   }
 }

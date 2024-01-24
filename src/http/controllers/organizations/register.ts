@@ -16,6 +16,7 @@ export const register = async (
     city: z.string(),
     postal_code: z.string(),
     image: z.string().default(''),
+    whatsapp: z.string(),
   })
 
   const {
@@ -27,6 +28,7 @@ export const register = async (
     city,
     postal_code,
     image,
+    whatsapp,
   } = registerOrganizationBodySchema.parse(request.body)
 
   try {
@@ -40,6 +42,7 @@ export const register = async (
       city,
       postal_code,
       image,
+      whatsapp,
     })
 
     return reply.status(201).send({ message: 'Organization created!' })
