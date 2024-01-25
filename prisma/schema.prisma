@@ -31,10 +31,11 @@ model Pet {
   name        String
   about       String
   age         String
+  type        String
   energy      Int
   independent String
   environment String
-  image       String?
+  photo       String?
   city        String
   adopted_at  DateTime?
   created_at  DateTime  @default(now())
@@ -48,8 +49,9 @@ model Pet {
 }
 
 model PetGallery {
-  id    String @id @default(uuid())
-  image String
+  id     String  @id @default(uuid())
+  image  String
+  base64 String?
 
   pet    Pet    @relation(fields: [pet_id], references: [id])
   pet_id String

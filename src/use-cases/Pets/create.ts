@@ -23,8 +23,9 @@ export class CreatePetUseCase {
     independent,
     org_id,
     city,
-    image,
+    images,
     requirements,
+    type,
   }: PetsCreateRequest): Promise<PetsCreateResponse> {
     const organization = await this.organizationsRepository.findById(org_id)
 
@@ -32,7 +33,7 @@ export class CreatePetUseCase {
       throw new ResourceDoesNotExistError()
     }
 
-    const petPhoto = image ? image[0].filename : null
+    const petPhoto = images ? images[0].filename : ''
 
     const pet = await this.petsRepository.create({
       name,
@@ -41,30 +42,32 @@ export class CreatePetUseCase {
       energy,
       independent,
       environment,
-      image: petPhoto,
+      photo: petPhoto,
       city,
       org_id: organization.id,
+      type,
     })
 
-    const requirementsJSON = JSON.parse(requirements)
-    const checkRequirementsLength = requirementsJSON.length <= 0
+    const requirementArray = JSON.parse(requirements)
+    const checkRequirementsLength = requirementArray.length >= 0
 
     if (!checkRequirementsLength) {
       throw new InvalidRequirementsError()
     }
 
-    for (const requirement of requirementsJSON) {
+    for (const requirement of requirementArray) {
       await this.adoptionRequirementsRepository.create({
         title: requirement,
         pet_id: pet.id,
       })
     }
 
-    if (image) {
-      for (const pic of image) {
+    if (images) {
+      for (const pic of images) {
         await this.petsGalleryRepository.create({
           image: pic.filename,
           pet_id: pet.id,
+          base64: pic.base64,
         })
       }
     }
