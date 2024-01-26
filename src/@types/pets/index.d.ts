@@ -26,3 +26,11 @@ export interface PetsCreateRequest {
 export interface PetsCreateResponse {
   pet: Pet
 }
+
+export interface FindAllPetsInACityRequest {
+  city: string
+}
+
+export interface FindAllPetsInACityResponse {
+  pets: Pet[]
+}

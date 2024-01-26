@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { create } from './create'
 import { verifyJWT } from '@/http/middlewares/verify-jwt'
 import multer from 'fastify-multer'
+import { findAllInACity } from './fetch-pets'
 
 export const petsRoutes = async (app: FastifyInstance) => {
   app.addHook('onRequest', verifyJWT)
@@ -10,4 +11,5 @@ export const petsRoutes = async (app: FastifyInstance) => {
   const upload = multer({ storage })
 
   app.post('/pets', { preHandler: upload.array('images', 6) }, create)
+  app.get('/pets/:city', findAllInACity)
 }
