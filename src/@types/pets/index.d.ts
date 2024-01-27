@@ -2,8 +2,7 @@ import { Pet } from '@prisma/client'
 
 export interface FileName {
   id?: string
-  filename: string
-  type?: string
+  image: string
   base64: string
 }
 

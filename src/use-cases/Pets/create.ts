@@ -1,7 +1,7 @@
 import { PetsRepository } from '@/repositories/pets-repository'
 import { PetsCreateRequest, PetsCreateResponse } from '@/@types/pets'
 import { OrganizationRepository } from '@/repositories/organization-repository'
-import { AdoptionRequirementsRepository } from '@/repositories/pets-requirements-repository'
+import { PetRequirementsRepository } from '@/repositories/pets-requirements-repository'
 import { PetsGalleryRepository } from '@/repositories/pets-gallery-repository'
 import { ResourceDoesNotExistError } from '../errors/resource-does-not-exist-error'
 import { InvalidRequirementsError } from '../errors/invalid-requirements-error'
@@ -10,7 +10,7 @@ export class CreatePetUseCase {
   constructor(
     private petsRepository: PetsRepository,
     private organizationsRepository: OrganizationRepository,
-    private adoptionRequirementsRepository: AdoptionRequirementsRepository,
+    private petRequirementsRepository: PetRequirementsRepository,
     private petsGalleryRepository: PetsGalleryRepository,
   ) {}
 
@@ -33,7 +33,7 @@ export class CreatePetUseCase {
       throw new ResourceDoesNotExistError()
     }
 
-    const petPhoto = images ? images[0].filename : ''
+    const petPhoto = images ? images[0].image : ''
 
     const pet = await this.petsRepository.create({
       name,
@@ -56,7 +56,7 @@ export class CreatePetUseCase {
     }
 
     for (const requirement of requirementArray) {
-      await this.adoptionRequirementsRepository.create({
+      await this.petRequirementsRepository.create({
         title: requirement,
         pet_id: pet.id,
       })
@@ -65,7 +65,7 @@ export class CreatePetUseCase {
     if (images) {
       for (const pic of images) {
         await this.petsGalleryRepository.create({
-          image: pic.filename,
+          image: pic.image,
           pet_id: pet.id,
           base64: pic.base64,
         })
