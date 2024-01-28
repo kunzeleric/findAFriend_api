@@ -1,12 +1,12 @@
-import { AdoptionRequirements, Prisma } from '@prisma/client'
+import { PetRequirements, Prisma } from '@prisma/client'
 import { randomUUID } from 'crypto'
 import { PetRequirementsRepository } from '../pets-requirements-repository'
 
 export class InMemoryPetRequirementsRepository
   implements PetRequirementsRepository
 {
-  public items: AdoptionRequirements[] = []
-  async create(data: Prisma.AdoptionRequirementsUncheckedCreateInput) {
+  public items: PetRequirements[] = []
+  async create(data: Prisma.PetRequirementsUncheckedCreateInput) {
     const petRequirements = {
       id: randomUUID(),
       title: data.title,

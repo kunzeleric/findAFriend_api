@@ -1,15 +1,15 @@
 import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
-import { AdoptionRequirementsRepository } from '../pets-requirements-repository'
+import { PetRequirementsRepository } from '../pets-requirements-repository'
 
-export class PrismaAdoptionRequirementsRepository
-  implements AdoptionRequirementsRepository
+export class PrismaPetRequirementsRepository
+  implements PetRequirementsRepository
 {
-  async create(data: Prisma.AdoptionRequirementsUncheckedCreateInput) {
-    const adoptionRequirements = await prisma.adoptionRequirements.create({
+  async create(data: Prisma.PetRequirementsUncheckedCreateInput) {
+    const petRequirements = await prisma.petRequirements.create({
       data,
     })
 
-    return adoptionRequirements
+    return petRequirements
   }
 }

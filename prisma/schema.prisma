@@ -40,10 +40,10 @@ model Pet {
   adopted_at  DateTime?
   created_at  DateTime  @default(now())
 
-  org                   Organization           @relation(fields: [org_id], references: [id])
-  org_id                String
-  adoption_requirements AdoptionRequirements[]
-  pet_gallery           PetGallery[]
+  org          Organization      @relation(fields: [org_id], references: [id])
+  org_id       String
+  requirements PetRequirements[]
+  pet_gallery  PetGallery[]
 
   @@map("pets")
 }
@@ -59,12 +59,12 @@ model PetGallery {
   @@map("pet_gallery")
 }
 
-model AdoptionRequirements {
+model PetRequirements {
   id    String @id @default(uuid())
   title String
 
   pet    Pet    @relation(fields: [pet_id], references: [id])
   pet_id String
 
-  @@map("adoption_requirements")
+  @@map("pet_requirements")
 }

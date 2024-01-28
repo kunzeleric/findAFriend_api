@@ -49,7 +49,7 @@ export const create = async (req: FastifyRequest, reply: FastifyReply) => {
       : null
 
     const images: FileName[] = req.files.map((file, index) => ({
-      filename: file.originalname ?? '',
+      image: file.originalname ?? '',
       base64: base64EncodedPaths ? base64EncodedPaths[index] : '',
     }))
 
