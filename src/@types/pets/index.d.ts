@@ -27,9 +27,32 @@ export interface PetsCreateResponse {
 }
 
 export interface FindAllPetsInACityRequest {
-  city: string
+  query: string
+  page: number
 }
 
 export interface FindAllPetsInACityResponse {
+  pets: Pet[]
+}
+
+export interface FindByCharacteristicsParams {
+  age?: string
+  energy?: number
+  type?: string
+  independent?: string
+  environment?: string
+  city: string
+}
+
+export interface FindByCharacteristicsRequest {
+  age?: string
+  energy?: number
+  type?: string
+  independent?: string
+  environment?: string
+  city: string
+}
+
+export interface FindByCharacteristicsResponse {
   pets: Pet[]
 }

@@ -1,22 +1,22 @@
 import { describe, beforeEach, it, expect } from 'vitest'
 import { InMemoryPetRepository } from '@/repositories/in-memory/in-memory-pet-repository'
-import { FetchPetsInACityUseCase } from './fetch-pets-in-a-city'
+import { FetchPetsByCharacteristicUseCase } from './fetch-pets-by-characteristics'
 
 let petRepository: InMemoryPetRepository
-let sut: FetchPetsInACityUseCase
+let sut: FetchPetsByCharacteristicUseCase
 
-describe('Find All Pets In a City Use Case', () => {
+describe('Find All PetsBy Characteristic in a City Use Case', () => {
   beforeEach(() => {
     petRepository = new InMemoryPetRepository()
-    sut = new FetchPetsInACityUseCase(petRepository)
+    sut = new FetchPetsByCharacteristicUseCase(petRepository)
   })
-  it('should be able to fetch all pets within a city', async () => {
+  it('should be able to fetch all pets within a city with informed characteristics', async () => {
     await petRepository.create({
       id: 'pet-01',
       name: 'Test pet',
       about: 'Just a test pet',
-      city: 'São Paulo',
-      age: 'young',
+      city: 'Curitiba',
+      age: 'old',
       energy: 5,
       environment: 'indoor',
       independent: 'very much',
@@ -41,9 +41,11 @@ describe('Find All Pets In a City Use Case', () => {
 
     const paramsCitySearch = 'Curitiba'
 
-    const { pets } = await sut.execute({ query: paramsCitySearch, page: 1 })
+    console.log(petRepository.items)
+
+    const { pets } = await sut.execute({ city: paramsCitySearch, age: 'old' })
 
     expect(pets).toHaveLength(1)
-    expect(pets).toEqual([expect.objectContaining({ city: 'Curitiba' })])
+    expect(pets).toEqual([expect.objectContaining({ age: 'old' })])
   })
 })

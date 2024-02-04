@@ -3,6 +3,7 @@ import { create } from './create'
 import { verifyJWT } from '@/http/middlewares/verify-jwt'
 import multer from 'fastify-multer'
 import { findAllInACity } from './fetch-pets'
+import { findAllByCharacteristics } from './fetch-pets-by-characteristics'
 
 export const petsRoutes = async (app: FastifyInstance) => {
   app.addHook('onRequest', verifyJWT)
@@ -12,4 +13,5 @@ export const petsRoutes = async (app: FastifyInstance) => {
 
   app.post('/pets', { preHandler: upload.array('images', 6) }, create)
   app.get('/pets/:city', findAllInACity)
+  app.get('/pets', findAllByCharacteristics)
 }

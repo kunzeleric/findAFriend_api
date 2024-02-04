@@ -9,9 +9,10 @@ export class FetchPetsInACityUseCase {
   constructor(private petsRepository: PetsRepository) {}
 
   async execute({
-    city,
+    query,
+    page,
   }: FindAllPetsInACityRequest): Promise<FindAllPetsInACityResponse> {
-    const pets = await this.petsRepository.findAllInACity(city)
+    const pets = await this.petsRepository.findAllInACity(query, page)
     if (!pets) {
       throw new ResourceDoesNotExistError()
     }

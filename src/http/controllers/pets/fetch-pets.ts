@@ -4,18 +4,19 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 export const findAllInACity = async (
-  req: FastifyRequest<{ Params: { city: string } }>,
+  req: FastifyRequest,
   reply: FastifyReply,
 ) => {
   const fetchAllPetsBodySchema = z.object({
-    city: z.string(),
+    query: z.string(),
+    page: z.coerce.number().min(1).default(1),
   })
 
-  const { city } = fetchAllPetsBodySchema.parse(req.params)
+  const { query, page } = fetchAllPetsBodySchema.parse(req.query)
   try {
     const fetchPetsUseCase = makeFetchPetsInACityUseCase()
 
-    const pets = await fetchPetsUseCase.execute({ city })
+    const pets = await fetchPetsUseCase.execute({ query, page })
 
     return reply.status(200).send(pets)
   } catch (error) {
