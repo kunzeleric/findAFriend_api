@@ -4,7 +4,8 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   plugins: [tsConfigPaths()],
   test: {
-    environmentMatchGlobs: [['src/http/controllers/**', 'prisma']],
-    dir: 'src',
+    environmentMatchGlobs: [
+      ['src/http/controllers/**', './vitest-environment-prisma/prisma.ts'],
+    ],
   },
 })
