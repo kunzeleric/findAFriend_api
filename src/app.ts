@@ -29,13 +29,11 @@ app.register(petsRoutes)
 
 app.setErrorHandler((error, request, reply) => {
   if (error instanceof ZodError) {
-    console.log(error)
+    console.error(error)
     return reply
       .status(400)
       .send({ message: 'Validation error', error: error.message })
   }
 
-  return reply
-    .status(500)
-    .send({ message: 'Internal error', error: error.message })
+  return reply.status(500).send({ message: 'Internal error' })
 })

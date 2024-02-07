@@ -7,12 +7,13 @@ export const findAllInACity = async (
   req: FastifyRequest,
   reply: FastifyReply,
 ) => {
-  const fetchAllPetsBodySchema = z.object({
+  const fetchAllPetsQueryParams = z.object({
     query: z.string(),
     page: z.coerce.number().min(1).default(1),
   })
 
-  const { query, page } = fetchAllPetsBodySchema.parse(req.query)
+  const { query, page } = fetchAllPetsQueryParams.parse(req.query)
+
   try {
     const fetchPetsUseCase = makeFetchPetsInACityUseCase()
 

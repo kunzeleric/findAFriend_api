@@ -14,7 +14,7 @@ export interface PetsCreateRequest {
   type: string
   independent: string
   environment: string
-  images?: FileName[]
+  images: FileName[] | []
   photo: string
   requirements: string
   city: string

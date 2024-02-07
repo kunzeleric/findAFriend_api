@@ -46,12 +46,14 @@ export const create = async (req: FastifyRequest, reply: FastifyReply) => {
       ? req.files.map((item) =>
           btoa(item.buffer ? item.buffer.toString('base64') : ''),
         )
-      : null
+      : []
 
-    const images: FileName[] = req.files.map((file, index) => ({
-      image: file.originalname ?? '',
-      base64: base64EncodedPaths ? base64EncodedPaths[index] : '',
-    }))
+    const images: FileName[] = req.files
+      ? req.files.map((file, index) => ({
+          image: file.originalname ?? '',
+          base64: base64EncodedPaths ? base64EncodedPaths[index] : '',
+        }))
+      : []
 
     const { pet } = await createPetUseCase.execute({
       name,

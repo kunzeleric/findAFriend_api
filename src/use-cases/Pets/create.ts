@@ -33,8 +33,6 @@ export class CreatePetUseCase {
       throw new ResourceDoesNotExistError()
     }
 
-    const petPhoto = images ? images[0].image : ''
-
     const pet = await this.petsRepository.create({
       name,
       about,
@@ -42,14 +40,14 @@ export class CreatePetUseCase {
       energy,
       independent,
       environment,
-      photo: petPhoto,
+      photo: images.length > 0 ? images[0].image : '',
       city,
       org_id: organization.id,
       type,
     })
 
     const requirementArray = JSON.parse(requirements)
-    const checkRequirementsLength = requirementArray.length >= 0
+    const checkRequirementsLength = requirementArray.length > 0
 
     if (!checkRequirementsLength) {
       throw new InvalidRequirementsError()
@@ -62,7 +60,7 @@ export class CreatePetUseCase {
       })
     }
 
-    if (images) {
+    if (images && images.length > 0) {
       for (const pic of images) {
         await this.petsGalleryRepository.create({
           image: pic.image,

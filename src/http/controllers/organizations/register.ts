@@ -33,7 +33,7 @@ export const register = async (
 
   try {
     const registerUseCase = MakeRegisterUseCase()
-    await registerUseCase.execute({
+    const organization = await registerUseCase.execute({
       name,
       name_responsible,
       email,
@@ -45,7 +45,9 @@ export const register = async (
       whatsapp,
     })
 
-    return reply.status(201).send({ message: 'Organization created!' })
+    return reply
+      .status(201)
+      .send({ message: 'Organization created!', organization })
   } catch (error) {
     if (error instanceof OrganizationAlreadyExistsError) {
       return reply.status(400).send({ error: error.message })
