@@ -13,5 +13,5 @@ export const petsRoutes = async (app: FastifyInstance) => {
 
   app.post('/pets', { preHandler: upload.array('images', 6) }, create)
   app.get('/pets', findAllByCharacteristics)
-  app.get('/pets/cidade', findAllInACity)
+  app.get('/pets/city', findAllInACity)
 }
